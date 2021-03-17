@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CoinTracker</string>
+    <string name="nav_header_title">Coin Tracker User Name</string>
+    <string name="nav_header_subtitle">User e-Mail</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_favorites">My Favorite Coins</string>
+</resources>
