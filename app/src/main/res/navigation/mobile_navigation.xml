@@ -3,12 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_favorites">
+    app:startDestination="@id/coinListFragment">
 
     <fragment
         android:id="@+id/nav_favorites"
         android:name="com.pmirkelam.cointracker.ui.favorites.FavoritesFragment"
         android:label="@string/menu_favorites"
         tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/coinListFragment"
+        android:name="com.pmirkelam.cointracker.ui.coins.CoinFragment"
+        android:label="CoinListFragment"
+        tools:layout="@layout/fragment_coin_list">
+        <action
+            android:id="@+id/action_coinListFragment_to_nav_favorites2"
+            app:destination="@id/nav_favorites" />
+    </fragment>
 
 </navigation>
