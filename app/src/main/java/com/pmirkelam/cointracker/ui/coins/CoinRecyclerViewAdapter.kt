@@ -2,13 +2,15 @@ package com.pmirkelam.cointracker.ui.coins
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.pmirkelam.cointracker.R
 import com.pmirkelam.cointracker.data.Coin
 import com.pmirkelam.cointracker.databinding.FragmentCoinBinding
 
-class CoinRecyclerViewAdapter : RecyclerView.Adapter<CoinRecyclerViewAdapter.ViewHolder>() {
+class CoinRecyclerViewAdapter(private val listener: CoinItemListener) :
+    RecyclerView.Adapter<CoinRecyclerViewAdapter.ViewHolder>() {
 
     private var list: List<Coin>? = null
 
@@ -17,11 +19,12 @@ class CoinRecyclerViewAdapter : RecyclerView.Adapter<CoinRecyclerViewAdapter.Vie
             LayoutInflater.from(viewGroup.context),
             R.layout.fragment_coin, viewGroup, false
         )
-        return ViewHolder(coinBinding)
+        return ViewHolder(coinBinding, listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.coinBinding.coin = list?.get(position)
+        list?.get(position)?.let { holder.bind(it) }
     }
 
     var coinList: List<Coin>?
@@ -33,8 +36,34 @@ class CoinRecyclerViewAdapter : RecyclerView.Adapter<CoinRecyclerViewAdapter.Vie
 
     override fun getItemCount(): Int = list?.size ?: 0
 
-    inner class ViewHolder(binding: FragmentCoinBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(
+        binding: FragmentCoinBinding,
+        private val listener: CoinItemListener
+    ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        private lateinit var coin: Coin
         val coinBinding: FragmentCoinBinding = binding
 
+        init {
+            coinBinding.root.setOnClickListener(this)
+        }
+
+        fun bind(item: Coin) {
+            this.coin = item
+            coinBinding.coinItemName.text = item.name
+            coinBinding.coinItemSymbol.text = item.symbol
+//            Glide.with(coinBinding.root)
+//                .load(item.image)
+//                .transform(CircleCrop())
+//                .into(coinBinding.coinItemIcon)
+        }
+
+        override fun onClick(v: View?) {
+            listener.onClickedCoin(coin.id)
+        }
+    }
+
+    interface CoinItemListener {
+        fun onClickedCoin(coinId: String)
     }
 }

@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.pmirkelam.cointracker.R
 import com.pmirkelam.cointracker.databinding.FragmentCoinListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CoinFragment : Fragment() {
+class CoinFragment : Fragment(), CoinRecyclerViewAdapter.CoinItemListener {
 
     private lateinit var coinViewModel: CoinViewModel
     private lateinit var recyclerViewCoin: RecyclerView
@@ -36,7 +38,7 @@ class CoinFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.stackFromEnd = true
         recyclerViewCoin.layoutManager = linearLayoutManager
-        coinDataAdapter = CoinRecyclerViewAdapter()
+        coinDataAdapter = CoinRecyclerViewAdapter(this)
         recyclerViewCoin.adapter = coinDataAdapter
         recyclerViewCoin.itemAnimator = DefaultItemAnimator()
 
@@ -55,6 +57,13 @@ class CoinFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onClickedCoin(coinId: String) {
+        findNavController().navigate(
+            R.id.action_coinListFragment_to_coinDetailFragment,
+            bundleOf("id" to coinId)
+        )
     }
 
 

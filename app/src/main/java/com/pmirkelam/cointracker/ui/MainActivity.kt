@@ -1,7 +1,6 @@
 package com.pmirkelam.cointracker.ui
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.nav_favorites){
-            navController.navigate(R.id.action_coinListFragment_to_nav_favorites2)
+            navController.navigate(R.id.action_coinListFragment_to_nav_favorites)
             drawerLayout.close()
         }
         return true

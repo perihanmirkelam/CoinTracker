@@ -16,8 +16,15 @@
         android:label="CoinListFragment"
         tools:layout="@layout/fragment_coin_list">
         <action
-            android:id="@+id/action_coinListFragment_to_nav_favorites2"
+            android:id="@+id/action_coinListFragment_to_nav_favorites"
             app:destination="@id/nav_favorites" />
+        <action
+            android:id="@+id/action_coinListFragment_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/coinDetailFragment"
+        android:name="com.pmirkelam.cointracker.ui.coindetail.CoinDetailFragment"
+        android:label="CoinDetailFragment" />
 
 </navigation>
