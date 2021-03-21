@@ -7,54 +7,64 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.pmirkelam.cointracker.R
-import com.pmirkelam.cointracker.databinding.FragmentCoinListBinding
+import com.pmirkelam.cointracker.databinding.FragmentCoinsListBinding
+import com.pmirkelam.cointracker.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CoinFragment : Fragment(), CoinRecyclerViewAdapter.CoinItemListener {
-
-    private lateinit var coinViewModel: CoinViewModel
+class CoinsFragment : Fragment(), CoinsRecyclerViewAdapter.CoinItemListener {
+    
+    private val coinsViewModel: CoinsViewModel by viewModels()
+    private lateinit var binding: FragmentCoinsListBinding
     private lateinit var recyclerViewCoin: RecyclerView
-    private lateinit var coinDataAdapter: CoinRecyclerViewAdapter
-    private lateinit var binding: FragmentCoinListBinding
+    private lateinit var coinsDataAdapter: CoinsRecyclerViewAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        coinViewModel = ViewModelProvider(this).get(CoinViewModel::class.java)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_coin_list, container, false)
-        val view = binding.root
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_coins_list, container, false)
+        return binding.root
+    }
+
+    private fun initUI() {
         binding.lifecycleOwner = this
-        binding.coinViewModel = coinViewModel
+        binding.coinViewModel = coinsViewModel
         recyclerViewCoin = binding.recyclerViewCoinList
         linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.stackFromEnd = true
         recyclerViewCoin.layoutManager = linearLayoutManager
-        coinDataAdapter = CoinRecyclerViewAdapter(this)
-        recyclerViewCoin.adapter = coinDataAdapter
+        coinsDataAdapter = CoinsRecyclerViewAdapter(this)
+        recyclerViewCoin.adapter = coinsDataAdapter
         recyclerViewCoin.itemAnimator = DefaultItemAnimator()
-
-        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        coinViewModel.coins.observe(viewLifecycleOwner, {
-                coinList ->
-            run {
-                coinDataAdapter.coinList = coinList
-                coinDataAdapter.notifyDataSetChanged()
-                if (coinList.isNotEmpty()) {
-                    recyclerViewCoin.smoothScrollToPosition(coinDataAdapter.itemCount - 1)
+        initUI()
+        coinsViewModel.coins.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    binding.progressBar.visibility = View.GONE
+                    if (!it.data.isNullOrEmpty()) {
+                        coinsDataAdapter.coinList = ArrayList(it.data)
+                    }
                 }
+                Resource.Status.ERROR -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+
+                Resource.Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
             }
         })
     }

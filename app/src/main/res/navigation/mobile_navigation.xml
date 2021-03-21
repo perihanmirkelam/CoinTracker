@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/coinListFragment"
-        android:name="com.pmirkelam.cointracker.ui.coins.CoinFragment"
+        android:name="com.pmirkelam.cointracker.ui.coins.CoinsFragment"
         android:label="CoinListFragment"
-        tools:layout="@layout/fragment_coin_list">
+        tools:layout="@layout/fragment_coins_list">
         <action
             android:id="@+id/action_coinListFragment_to_nav_favorites"
             app:destination="@id/nav_favorites" />

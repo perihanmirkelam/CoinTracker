@@ -1,29 +1,25 @@
 package com.pmirkelam.cointracker.data
 
-import androidx.lifecycle.MutableLiveData
-import javax.inject.Singleton
+import com.pmirkelam.cointracker.data.db.CoinDAO
+import com.pmirkelam.cointracker.data.network.CoinRemoteDataSource
+import com.pmirkelam.cointracker.utils.resultLiveData
+import javax.inject.Inject
 
-@Singleton
-object CoinRepository {
+class CoinRepository @Inject constructor(
+    private val remoteDataSource: CoinRemoteDataSource,
+    private val localDataSource: CoinDAO,
+) {
 
-    private val coins: List<Coin> =
-        mutableListOf(
-            Coin(
-                "asd",
-                "BTC",
-                "Bitcoin",
-                "ad",
-                Description("asd"),
-                Image("asd", "asd", "asd"),
-                "$10.000.000",
-                1.0F,
-                0,
-                false
-            )
-        )
-    val coinsLiveData: MutableLiveData<List<Coin>> = MutableLiveData<List<Coin>>(coins)
+    fun getCoin(id: String) = resultLiveData(
+        databaseQuery = { localDataSource.getCoin(id) },
+        networkCall = { remoteDataSource.fetchCoin(id) },
+        saveCallResult = { localDataSource.insert(it) }
+    )
 
-    fun getCoins() {
-        return
-    }
+    fun getCoins() = resultLiveData(
+        databaseQuery = { localDataSource.getAllCoins() },
+        networkCall = { remoteDataSource.fetchCoins() },
+        saveCallResult = { localDataSource.insertAll(it) }
+    )
+
 }
