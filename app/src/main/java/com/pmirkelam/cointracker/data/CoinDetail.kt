@@ -1,5 +1,6 @@
 package com.pmirkelam.cointracker.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,30 +11,41 @@ data class CoinDetail(
     @PrimaryKey
     val id: String,
     val symbol: String,
-    var name: String,
-    @field:SerializedName("hashing_algorithm")
-    var hashing: String?,
+    val name: String,
+    @SerializedName("hashing_algorithm")
+    val hashing: String?,
     @Embedded
-    @field:SerializedName("market_data")
-    var marketData: MarketData?,
-    var description: Description?,
-    var image: Image?,
+    @SerializedName("market_data")
+    val marketData: MarketData?,
+    @Embedded
+    val description: Description?,
+    @Embedded
+    val image: Image?,
     val interval: Int?,
-    val favorited: Boolean?
+    var favorited: Boolean?
 )
 
-data class Description(var en: String? = "")
+data class Description(
+    @ColumnInfo(name = "description")
+    val en: String?
+)
 
-data class Image(var small: String? = "", var large: String? = "")
+data class Image(
+    @SerializedName("large")
+    val url: String?
+)
 
 data class MarketData(
     @Embedded
-    @field:SerializedName("current_price")
-    var currentPrice: CurrentPrice? = null,
-    @field:SerializedName("price_change_percentage_24h")
-    var priceChangePercentage: Double? = null,
-) {
-    data class CurrentPrice(var usd: Float? = -1F)
-}
+    @SerializedName("current_price")
+    val currentPrice: CurrentPrice?,
+    @SerializedName("price_change_percentage_24h")
+    val priceChangePercentage24h: Double?
+)
+
+data class CurrentPrice(
+    @ColumnInfo(name = "price")
+    val usd: Float?
+)
 
 

@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/text_margin"
                     android:layout_marginEnd="@dimen/parent_margin_properties"
-                    android:text='@{coin.marketData.priceChangePercentage != null ? (String.format("%.2f", coin.marketData.priceChangePercentage) + " %") : "-"}'
+                    android:text='@{coin.marketData.priceChangePercentage24h != null ? (String.format("%.2f", coin.marketData.priceChangePercentage24h) + " %") : "-"}'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_current_price"
                     tools:text="10%" />

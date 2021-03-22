@@ -44,7 +44,7 @@ class CoinDetailFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     it?.let{
                         Glide.with(binding.root)
-                            .load(it.data?.image?.large)
+                            .load(it.data?.image?.url)
                             .into(binding.imageCoinDetail)
                     }
                 }
