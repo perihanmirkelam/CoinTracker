@@ -1,9 +1,9 @@
-package com.pmirkelam.cointracker.ui.favorites
+package com.pmirkelam.cointracker.favorites.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pmirkelam.cointracker.data.CoinRepository
+import com.pmirkelam.cointracker.coins.data.CoinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

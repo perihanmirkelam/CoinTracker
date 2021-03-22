@@ -1,4 +1,4 @@
-package com.pmirkelam.cointracker.ui
+package com.pmirkelam.cointracker
 
 import android.os.Bundle
 import android.view.MenuItem

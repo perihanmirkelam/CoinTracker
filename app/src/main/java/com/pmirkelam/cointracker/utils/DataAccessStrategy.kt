@@ -1,6 +1,5 @@
 package com.pmirkelam.cointracker.utils
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map

@@ -6,60 +6,48 @@
     <data>
         <variable
             name="coin"
-            type="com.pmirkelam.cointracker.data.Coin" />
+            type="com.pmirkelam.cointracker.coins.data.Coin" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        tools:viewBindingIgnore="true"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardCornerRadius="4dp"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/purple_700"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/coin_item_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="16dp"
-            android:text="@{coin.id}"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coin_item_symbol"
-            tools:text="bitcoin" />
+            <TextView
+                android:id="@+id/coin_item_symbol"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                app:text="@{coin.symbol}"
+                tools:text="BTC" />
 
-        <TextView
-            android:id="@+id/coin_item_symbol"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="64dp"
-            android:text="@{coin.symbol}"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/coin_item_price"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coin_item_name"
-            tools:text="BTC" />
+            <TextView
+                android:id="@+id/coin_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:gravity="center"
+                android:text="@{coin.name}"
+                android:textAlignment="center"
+                android:textColor="?android:attr/textColorSecondaryInverse"
+                android:textSize="@dimen/text_size"
+                tools:text="Bitcoin" />
 
-        <TextView
-            android:id="@+id/coin_item_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="64dp"
-            android:text="@{coin.name}"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/coin_item_symbol"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Bitcoin" />
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </layout>

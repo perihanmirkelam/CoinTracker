@@ -1,4 +1,4 @@
-package com.pmirkelam.cointracker.data
+package com.pmirkelam.cointracker.coins.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

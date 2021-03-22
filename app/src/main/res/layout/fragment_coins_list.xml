@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-            name="CoinViewModel"
-            type="com.pmirkelam.cointracker.ui.coins.CoinsViewModel" />
+            name="adapter"
+            type="com.pmirkelam.cointracker.coins.ui.CoinsPagingAdapter" />
     </data>
 
     <FrameLayout
@@ -28,9 +28,9 @@
                 android:name="com.pmirkelam.cointracker.ui.coins.CoinFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="LinearLayoutManager"
-                tools:context=".ui.coins.CoinsFragment"
-                tools:layout_editor_absoluteX="-16dp"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="1"
+                tools:context=".coins.ui.CoinsFragment"
                 tools:listitem="@layout/list_item_coin" />
 
         </LinearLayout>
@@ -40,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:visibility="visible" />
+            android:indeterminate="true"
+            android:visibility="visible"/>
 
     </FrameLayout>
 

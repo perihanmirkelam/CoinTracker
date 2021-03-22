@@ -1,6 +1,5 @@
-package com.pmirkelam.cointracker.data.network
+package com.pmirkelam.cointracker.api
 
-import android.util.Log
 import javax.inject.Inject
 
 class CoinRemoteDataSource @Inject constructor(

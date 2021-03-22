@@ -7,7 +7,7 @@
 
         <variable
             name="ViewModel"
-            type="com.pmirkelam.cointracker.ui.coindetail.CoinDetailViewModel" />
+            type="com.pmirkelam.cointracker.coindetail.ui.CoinDetailViewModel" />
 
         <variable
             name="coin"
@@ -17,7 +17,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.coindetail.CoinDetailFragment">
+        tools:context=".coindetail.ui.CoinDetailFragment">
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -43,8 +43,7 @@
                     android:layout_marginTop="@dimen/image_margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/icon_favorited"

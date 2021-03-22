@@ -1,4 +1,4 @@
-package com.pmirkelam.cointracker.ui.coindetail
+package com.pmirkelam.cointracker.coindetail.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

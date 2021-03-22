@@ -3,11 +3,14 @@ package com.pmirkelam.cointracker.di
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.pmirkelam.cointracker.data.CoinRepository
-import com.pmirkelam.cointracker.data.db.CoinDAO
-import com.pmirkelam.cointracker.data.db.AppDatabase
-import com.pmirkelam.cointracker.data.network.CoinRemoteDataSource
-import com.pmirkelam.cointracker.data.network.CoinService
+import com.pmirkelam.cointracker.coins.data.CoinRepository
+import com.pmirkelam.cointracker.coins.data.CoinDAO
+import com.pmirkelam.cointracker.AppDatabase
+import com.pmirkelam.cointracker.coindetail.data.CoinDetailDAO
+import com.pmirkelam.cointracker.api.CoinRemoteDataSource
+import com.pmirkelam.cointracker.api.CoinService
+import com.pmirkelam.cointracker.coindetail.data.CoinDetailRepository
+import com.pmirkelam.cointracker.utils.Constants.API_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +27,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRetrofit(gson: Gson): Retrofit = Retrofit.Builder()
-        .baseUrl("https://api.coingecko.com/api/v3/")
+        .baseUrl(API_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
@@ -50,10 +53,22 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(
+    fun provideCoinDetailDao(db: AppDatabase) = db.coinDetailDao()
+
+    @Singleton
+    @Provides
+    fun provideCoinRepository(
         remoteDataSource: CoinRemoteDataSource,
-        localDataSource: CoinDAO
+        localDataSourceCoin: CoinDAO,
     ) =
-        CoinRepository(remoteDataSource, localDataSource)
+        CoinRepository(remoteDataSource, localDataSourceCoin)
+
+    @Singleton
+    @Provides
+    fun provideCoinDetailRepository(
+        remoteDataSource: CoinRemoteDataSource,
+        localDataSourceCoinDetail: CoinDetailDAO,
+    ) =
+        CoinDetailRepository(remoteDataSource, localDataSourceCoinDetail)
 
 }
