@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/coinListFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/nav_favorites"
@@ -13,18 +13,55 @@
     <fragment
         android:id="@+id/coinListFragment"
         android:name="com.pmirkelam.cointracker.coins.ui.CoinsFragment"
-        android:label="CoinListFragment"
+        android:label="Coin Tracker"
         tools:layout="@layout/fragment_coins_list">
         <action
             android:id="@+id/action_coinListFragment_to_nav_favorites"
-            app:destination="@id/nav_favorites" />
+            app:destination="@id/nav_favorites"
+            app:popUpTo="@+id/coinDetailFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_coinListFragment_to_coinDetailFragment"
-            app:destination="@id/coinDetailFragment" />
+            app:destination="@id/coinDetailFragment"
+            app:popUpTo="@+id/coinDetailFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_coinListFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/coinListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/coinDetailFragment"
         android:name="com.pmirkelam.cointracker.coindetail.ui.CoinDetailFragment"
-        android:label="CoinDetailFragment" />
+        android:label="Coin Detail" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.pmirkelam.cointracker.auth.ui.LoginFragment"
+        android:label="Coin Tracker" >
+        <action
+            android:id="@+id/action_loginFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment"
+            app:popUpTo="@+id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.pmirkelam.cointracker.auth.ui.SignUpFragment2"
+        android:label="Coin Tracker" >
+        <action
+            android:id="@+id/action_signUpFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment"
+            app:popUpTo="@+id/signUpFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/signUpFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

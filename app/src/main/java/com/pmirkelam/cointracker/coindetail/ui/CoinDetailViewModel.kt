@@ -1,9 +1,6 @@
 package com.pmirkelam.cointracker.coindetail.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.pmirkelam.cointracker.coindetail.data.CoinDetailRepository
 import com.pmirkelam.cointracker.data.CoinDetail
 import com.pmirkelam.cointracker.utils.Resource
