@@ -16,7 +16,7 @@ import com.pmirkelam.cointracker.databinding.FragmentSignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment2 : Fragment() {
+class SignUpFragment : Fragment() {
 
 
     private lateinit var binding: FragmentSignUpBinding
@@ -47,7 +47,9 @@ class SignUpFragment2 : Fragment() {
         viewModel.isSignedUp.observe(viewLifecycleOwner, {
             if (it) {
                 Toast.makeText(context, "Signed up successfully", Toast.LENGTH_SHORT).show()
-                navController.navigate(R.id.action_signUpFragment_to_coinListFragment)
+                navController.navigate(
+                    SignUpFragmentDirections.actionSignUpFragmentToCoinListFragment()
+                )
                 viewModel.navigated()
             }
         })
@@ -56,7 +58,9 @@ class SignUpFragment2 : Fragment() {
     private fun observeBackToLogin() {
         viewModel.backToLogin.observe(viewLifecycleOwner, {
             if (it) {
-                navController.navigate(R.id.action_signUpFragment_to_loginFragment)
+                navController.navigate(
+                    SignUpFragmentDirections.actionSignUpFragmentToLoginFragment()
+                )
                 viewModel.navigated()
             }
         })

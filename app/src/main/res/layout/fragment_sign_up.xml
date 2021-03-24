@@ -12,7 +12,7 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.ui.SignUpFragment2">
+    tools:context=".auth.ui.SignUpFragment">
 
         <ProgressBar
             android:id="@+id/progressBar"

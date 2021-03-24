@@ -52,7 +52,9 @@ class LoginFragment : Fragment() {
         // Skip login screen if logged in once
         viewModel.isLoggedIn.observe(viewLifecycleOwner, {
             if (it) {
-                navController.navigate(R.id.action_loginFragment_to_coinListFragment)
+                navController.navigate(
+                    LoginFragmentDirections.actionLoginFragmentToCoinListFragment()
+                )
                 viewModel.navigated()
             }
         })
@@ -73,7 +75,9 @@ class LoginFragment : Fragment() {
     private fun observeSignUpChoice() {
         viewModel.signUpNeeded.observe(viewLifecycleOwner, {
             if (it) {
-                navController.navigate(R.id.action_loginFragment_to_signUpFragment)
+                navController.navigate(
+                    LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+                )
                 viewModel.navigated()
             }
         })

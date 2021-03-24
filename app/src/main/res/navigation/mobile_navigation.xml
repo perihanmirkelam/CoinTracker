@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.pmirkelam.cointracker.auth.ui.SignUpFragment2"
+        android:name="com.pmirkelam.cointracker.auth.ui.SignUpFragment"
         android:label="Coin Tracker" >
         <action
             android:id="@+id/action_signUpFragment_to_coinListFragment"

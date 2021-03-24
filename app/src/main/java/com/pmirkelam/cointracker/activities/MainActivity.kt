@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.ui.*
 import com.pmirkelam.cointracker.R
+import com.pmirkelam.cointracker.coins.ui.CoinsFragmentDirections
 import com.pmirkelam.cointracker.databinding.ActivityMainBinding
 import com.pmirkelam.cointracker.databinding.NavHeaderMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,9 +55,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_favorites ->
-                navController.navigate(R.id.action_coinListFragment_to_nav_favorites)
+                navController.navigate(CoinsFragmentDirections.actionCoinListFragmentToNavFavorites())
             R.id.nav_log_out -> {
-                navController.navigate(R.id.action_coinListFragment_to_loginFragment)
+                navController.navigate(CoinsFragmentDirections.actionCoinListFragmentToLoginFragment())
                 viewModel.clearUser()
             }
         }
