@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">CoinTracker</string>
-    <string name="nav_header_title">Coin Tracker User Name</string>
-    <string name="nav_header_subtitle">User e-Mail</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="menu_favorites">My favorite coins</string>
     <string name="menu_log_out">Logout</string>
@@ -21,7 +19,6 @@
     <string name="create_an_account">Create an Account</string>
     <string name="don_t_have_an_account_signup">Don\'t Have an account? Signup</string>
     <string name="sign_in">Sign In</string>
-    <string name="forgot_password">forgot password</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
 </resources>

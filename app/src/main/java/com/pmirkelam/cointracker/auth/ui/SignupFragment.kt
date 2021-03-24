@@ -46,6 +46,7 @@ class SignUpFragment2 : Fragment() {
     private fun observeSignUpStatus() {
         viewModel.isSignedUp.observe(viewLifecycleOwner, {
             if (it) {
+                Toast.makeText(context, "Signed up successfully", Toast.LENGTH_SHORT).show()
                 navController.navigate(R.id.action_signUpFragment_to_coinListFragment)
                 viewModel.navigated()
             }

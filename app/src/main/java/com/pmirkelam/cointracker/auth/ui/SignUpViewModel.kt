@@ -3,26 +3,24 @@ package com.pmirkelam.cointracker.auth.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.pmirkelam.cointracker.auth.data.User
-import com.pmirkelam.cointracker.utils.Constants.ENTER_EMAIL
-import com.pmirkelam.cointracker.utils.Constants.ENTER_NAME
-import com.pmirkelam.cointracker.utils.Constants.ENTER_PASSWORD
+import com.pmirkelam.cointracker.auth.data.UserRepository
+import com.pmirkelam.cointracker.utils.Constants.WARN_ENTER_EMAIL
+import com.pmirkelam.cointracker.utils.Constants.WARN_ENTER_MIN_LENGTH_PASSWORD
+import com.pmirkelam.cointracker.utils.Constants.WARN_ENTER_NAME
+import com.pmirkelam.cointracker.utils.Constants.WARN_ENTER_PASSWORD
+import com.pmirkelam.cointracker.utils.Constants.PASSWORD_MIN_LENGTH
 import com.pmirkelam.cointracker.utils.Constants.UNKNOWN_ERROR
-import com.pmirkelam.cointracker.utils.SessionManagement
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val auth: FirebaseAuth,
-    private val sessionManagement: SessionManagement,
-    private val firestore: FirebaseFirestore
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _showProgress = MutableLiveData<Boolean>()
-    private val _isSignedUp = MutableLiveData(sessionManagement.isLoggedIn())
+    private val _isSignedUp = MutableLiveData(repository.isLoggedIn())
     private val _errorMessage = MutableLiveData<String>()
     private val _backToLogin = MutableLiveData<Boolean>()
 
@@ -65,7 +63,8 @@ class SignUpViewModel @Inject constructor(
 
     private fun signUp(user: User) {
         _showProgress.value = true
-        auth.createUserWithEmailAndPassword(user.email, user.password)
+        repository
+            .signUpUser(user)
             .addOnCompleteListener { task ->
 
                 if (task.isSuccessful) {
@@ -78,25 +77,25 @@ class SignUpViewModel @Inject constructor(
             }
     }
 
-    private fun saveRemoteDb(user: User){
+    private fun saveRemoteDb(user: User) {
         // save user to firestore
-        auth.uid?.let {
+        repository.uid?.let {
             val map: HashMap<String, String> = HashMap()
             user.id = it
             map["id"] = it
             map["name"] = user.name
             map["email"] = user.email
             map["password"] = user.password
-            firestore.collection("users/")
-                .document(it)
-                .set(map as Map<String, Any>)
+
+            repository
+                .saveUser(user)
                 .addOnCompleteListener { task ->
 
                     _showProgress.value = false
                     _isSignedUp.value = true
 
                     if (task.isSuccessful) {
-                        sessionManagement.createSession(true, user)
+                        repository.saveUserToPref(true, user)
                     } else {
                         _errorMessage.value = task.exception?.message ?: UNKNOWN_ERROR
                     }
@@ -107,15 +106,19 @@ class SignUpViewModel @Inject constructor(
     private fun isCredentialsValid(user: User): Boolean {
         return when {
             user.name.isEmpty() -> {
-                _errorMessage.value = ENTER_NAME
+                _errorMessage.value = WARN_ENTER_NAME
                 false
             }
             user.email.isEmpty() -> {
-                _errorMessage.value = ENTER_EMAIL
+                _errorMessage.value = WARN_ENTER_EMAIL
                 false
             }
             user.password.isEmpty() -> {
-                _errorMessage.value = ENTER_PASSWORD
+                _errorMessage.value = WARN_ENTER_PASSWORD
+                false
+            }
+            user.password.length < PASSWORD_MIN_LENGTH -> {
+                _errorMessage.value = WARN_ENTER_MIN_LENGTH_PASSWORD
                 false
             }
             else -> true

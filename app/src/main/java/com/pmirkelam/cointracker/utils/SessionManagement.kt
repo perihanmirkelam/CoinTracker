@@ -2,8 +2,9 @@ package com.pmirkelam.cointracker.utils
 
 import android.content.SharedPreferences
 import com.pmirkelam.cointracker.auth.data.User
+import javax.inject.Inject
 
-class SessionManagement(
+class SessionManagement @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val editor: SharedPreferences.Editor
     ) {
@@ -28,8 +29,12 @@ class SessionManagement(
         editor.commit()
     }
 
-    fun setLoggedIn() {
-        editor.putBoolean(KEY_IS_LOGIN, true)
+    fun getUser(): User {
+        return User(
+            id = sharedPreferences.getString(KEY_USER_ID, ""),
+            name = sharedPreferences.getString(KEY_USER_NAME, "") ?: "",
+            email = sharedPreferences.getString(KEY_USER_EMAIL, "") ?: ""
+        )
     }
 
     fun getValue(key: String): String? {

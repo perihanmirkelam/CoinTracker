@@ -3,23 +3,21 @@ package com.pmirkelam.cointracker.auth.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
 import com.pmirkelam.cointracker.auth.data.User
-import com.pmirkelam.cointracker.utils.Constants.ENTER_EMAIL
-import com.pmirkelam.cointracker.utils.Constants.ENTER_PASSWORD
+import com.pmirkelam.cointracker.auth.data.UserRepository
+import com.pmirkelam.cointracker.utils.Constants.WARN_ENTER_EMAIL
+import com.pmirkelam.cointracker.utils.Constants.WARN_ENTER_PASSWORD
 import com.pmirkelam.cointracker.utils.Constants.UNKNOWN_ERROR
-import com.pmirkelam.cointracker.utils.SessionManagement
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val auth: FirebaseAuth,
-    private val sessionManagement: SessionManagement
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _showProgress = MutableLiveData<Boolean>()
-    private val _isLoggedIn = MutableLiveData(sessionManagement.isLoggedIn())
+    private val _isLoggedIn = MutableLiveData(repository.isLoggedIn())
     private val _errorMessage = MutableLiveData<String>()
     private val _signUpNeeded = MutableLiveData<Boolean>()
 
@@ -59,12 +57,12 @@ class LoginViewModel @Inject constructor(
 
     private fun loginUser(user: User) {
         _showProgress.value = true
-        auth.signInWithEmailAndPassword(user.email, user.password).addOnCompleteListener { task ->
+
+        repository.signInUser(user.email, user.password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 _showProgress.value = false
                 _isLoggedIn.value = true
-                sessionManagement.setLoggedIn()
-                sessionManagement.createSession(true, user)
+                repository.saveUserToPref(true, user)
             } else {
                 _errorMessage.value = task.exception?.message ?: UNKNOWN_ERROR
                 _showProgress.value = false
@@ -75,11 +73,11 @@ class LoginViewModel @Inject constructor(
     private fun isCredentialsValid(user: User): Boolean {
         return when {
             user.email.isEmpty() -> {
-                _errorMessage.value = ENTER_EMAIL
+                _errorMessage.value = WARN_ENTER_EMAIL
                 return false
             }
             user.password.isEmpty() -> {
-                _errorMessage.value = ENTER_PASSWORD
+                _errorMessage.value = WARN_ENTER_PASSWORD
                 return false
             }
             else -> true

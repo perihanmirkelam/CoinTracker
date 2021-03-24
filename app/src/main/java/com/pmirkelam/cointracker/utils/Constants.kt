@@ -6,9 +6,13 @@ object Constants {
     const val PREF_NAME = "UserCredentialsPref"
 
     const val UNKNOWN_ERROR = "Unknown Error"
-    const val ENTER_EMAIL = "Please enter an email"
-    const val ENTER_NAME = "Please enter an email"
-    const val ENTER_PASSWORD = "Please enter an email"
-    const val ENTER_MIN_SIZE_PASSWORD = "Minimum password must be 7 chars"
+    const val PASSWORD_MIN_LENGTH = 7
+
+    const val WARN_ENTER_EMAIL = "Please enter an email"
+    const val WARN_ENTER_NAME = "Please enter an email"
+    const val WARN_ENTER_PASSWORD = "Please enter an email"
+    const val WARN_ENTER_MIN_LENGTH_PASSWORD = "Minimum password must be $PASSWORD_MIN_LENGTH chars"
+
+    const val BUNDLE_EMAIL = "email"
 
 }
