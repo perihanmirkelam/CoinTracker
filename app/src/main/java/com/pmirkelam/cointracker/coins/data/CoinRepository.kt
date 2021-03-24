@@ -22,7 +22,7 @@ class CoinRepository @Inject constructor(
         if (cachedCoins.isEmpty()) {
             fetchCoins()
         }
-        return coinDAO.getFilteredCoins("%$filter%", offset)
+        return coinDAO.getFilteredCoins("$filter%", offset)
     }
 
     private suspend fun fetchCoins(){
