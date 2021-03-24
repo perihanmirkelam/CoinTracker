@@ -17,7 +17,15 @@ class CoinRepository @Inject constructor(
         return coinDAO.get4Coins(offset)
     }
 
-    suspend fun fetchCoins(){
+    suspend fun getFilteredPagedCoins(filter: String, offset: Int): List<Coin> {
+        val cachedCoins = coinDAO.getFilteredCoins(filter, offset)
+        if (cachedCoins.isEmpty()) {
+            fetchCoins()
+        }
+        return coinDAO.getFilteredCoins("%$filter%", offset)
+    }
+
+    private suspend fun fetchCoins(){
         val resource = remoteDataSource.fetchCoins()
         if (resource.status == Resource.Status.SUCCESS){
             resource.data?.let {

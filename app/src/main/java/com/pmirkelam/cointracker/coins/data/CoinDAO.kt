@@ -18,5 +18,7 @@ interface CoinDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(coins: List<Coin>)
 
+    @Query("SELECT * FROM coins WHERE name LIKE :search OR symbol LIKE :search LIMIT 4 OFFSET :offset")
+    suspend fun getFilteredCoins(search: String?, offset: Int): List<Coin>
 
 }

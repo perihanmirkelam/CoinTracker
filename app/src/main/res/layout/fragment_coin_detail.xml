@@ -53,7 +53,7 @@
                     android:layout_marginTop="@dimen/image_margin"
                     android:layout_marginEnd="@dimen/image_margin"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/favorite_on_icon"
+                    android:src="@drawable/ic_favorite_on"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/image_coin_detail"
@@ -67,7 +67,7 @@
                     android:layout_marginTop="28dp"
                     android:layout_marginEnd="@dimen/parent_margin_properties"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/set_interval_icon"
+                    android:src="@drawable/ic_refresh_interval_off"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_price_change_percentage" />
 

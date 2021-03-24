@@ -1,12 +1,10 @@
 package com.pmirkelam.cointracker.coindetail.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.pmirkelam.cointracker.R
@@ -24,10 +22,12 @@ class CoinDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_coin_detail, container, false)
         val view = binding.root
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        setHasOptionsMenu(true)
 
         return view
     }
@@ -42,7 +42,7 @@ class CoinDetailFragment : Fragment() {
                 Resource.Status.SUCCESS -> {
                     binding.coin = it.data
                     binding.progressBar.visibility = View.GONE
-                    it?.let{
+                    it?.let {
                         Glide.with(binding.root)
                             .load(it.data?.image?.url)
                             .into(binding.imageCoinDetail)
@@ -56,6 +56,10 @@ class CoinDetailFragment : Fragment() {
                 Resource.Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.coin_detail_menu, menu)
     }
 
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add_favorites"
+        android:icon="@drawable/ic_favorite_off"
+        android:title="@string/menu_favorite"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_set_interval"
+        android:icon="@drawable/ic_refresh_interval_off"
+        android:title="@string/menu_favorite"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_refresh"
+        android:title="@string/menu_favorite"
+        app:showAsAction="ifRoom" />
+</menu>
+

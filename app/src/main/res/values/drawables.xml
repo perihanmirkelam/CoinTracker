@@ -1,4 +1,0 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <item name="ic_favorite_off" type="drawable">@android:drawable/star_off</item>
-    <item name="ic_favorite_onn" type="drawable">@android:drawable/star_on</item>
-</resources>
