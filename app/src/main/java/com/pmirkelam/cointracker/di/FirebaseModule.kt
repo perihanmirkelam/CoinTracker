@@ -15,7 +15,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class FireBaseModule {
+class FirebaseModule {
+
+    @Provides
+    @Singleton
+    fun provideRemoteDatabase() = FirebaseFirestore.getInstance()
 
     @Provides
     @Singleton

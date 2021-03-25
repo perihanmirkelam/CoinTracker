@@ -68,7 +68,7 @@ class SignUpViewModel @Inject constructor(
             .addOnCompleteListener { task ->
 
                 if (task.isSuccessful) {
-                    saveRemoteDb(user)
+                    saveFirestore(user)
 
                 } else {
                     _errorMessage.value = task.exception?.message ?: UNKNOWN_ERROR
@@ -77,8 +77,7 @@ class SignUpViewModel @Inject constructor(
             }
     }
 
-    private fun saveRemoteDb(user: User) {
-        // save user to firestore
+    private fun saveFirestore(user: User) {
         repository.uid?.let {
             val map: HashMap<String, String> = HashMap()
             user.id = it

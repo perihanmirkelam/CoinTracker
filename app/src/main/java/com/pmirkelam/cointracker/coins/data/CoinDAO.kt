@@ -1,16 +1,11 @@
 package com.pmirkelam.cointracker.coins.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+
 
 @Dao
 interface CoinDAO {
-
-    @Query("SELECT * FROM coins")
-    fun getAllCoins(): LiveData<List<Coin>>
 
     @Query("SELECT * FROM coins LIMIT 4 OFFSET :offset")
     suspend fun get4Coins(offset: Int): List<Coin>

@@ -1,7 +1,7 @@
 package com.pmirkelam.cointracker.api
 
 import com.pmirkelam.cointracker.coins.data.Coin
-import com.pmirkelam.cointracker.data.CoinDetail
+import com.pmirkelam.cointracker.coindetail.data.CoinDetail
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

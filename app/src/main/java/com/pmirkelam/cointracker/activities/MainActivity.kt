@@ -1,7 +1,6 @@
 package com.pmirkelam.cointracker.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import com.google.android.material.navigation.NavigationView

@@ -2,7 +2,7 @@ package com.pmirkelam.cointracker.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.pmirkelam.cointracker.api.CoinRemoteDataSource
+import com.pmirkelam.cointracker.api.CoinDataSource
 import com.pmirkelam.cointracker.api.CoinService
 import com.pmirkelam.cointracker.utils.Constants
 import dagger.Module
@@ -19,7 +19,7 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideApiRemoteDataSource(coinService: CoinService) =
-        CoinRemoteDataSource(coinService)
+        CoinDataSource(coinService)
 
     @Provides
     fun provideApiService(retrofit: Retrofit): CoinService =

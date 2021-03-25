@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.pmirkelam.cointracker.coindetail.data.CoinDetailDAO
 import com.pmirkelam.cointracker.coins.data.CoinDAO
 import com.pmirkelam.cointracker.coins.data.Coin
-import com.pmirkelam.cointracker.data.CoinDetail
+import com.pmirkelam.cointracker.coindetail.data.CoinDetail
 
 @Database(entities = [Coin::class, CoinDetail::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

@@ -1,5 +1,6 @@
 package com.pmirkelam.cointracker.auth.data
 
+import com.pmirkelam.cointracker.firebase.FirebaseSource
 import com.pmirkelam.cointracker.utils.SessionManagement
 import javax.inject.Inject
 
@@ -17,8 +18,6 @@ class UserRepository @Inject constructor(
     fun signInUser(email: String, password: String) = fireBaseSource.signInUser(email, password)
 
     fun saveUser(user: User) = fireBaseSource.saveUser(user)
-
-    fun fetchUser() = fireBaseSource.fetchUser()
 
     fun saveUserToPref(status: Boolean, user: User) = sessionManagement.createSession(status, user)
 

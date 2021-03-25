@@ -1,11 +1,11 @@
 package com.pmirkelam.cointracker.coins.data
 
-import com.pmirkelam.cointracker.api.CoinRemoteDataSource
+import com.pmirkelam.cointracker.api.CoinDataSource
 import com.pmirkelam.cointracker.utils.Resource
 import javax.inject.Inject
 
 class CoinRepository @Inject constructor(
-    private val remoteDataSource: CoinRemoteDataSource,
+    private val dataSource: CoinDataSource,
     private val coinDAO: CoinDAO,
 ) {
 
@@ -26,7 +26,7 @@ class CoinRepository @Inject constructor(
     }
 
     private suspend fun fetchCoins(){
-        val resource = remoteDataSource.fetchCoins()
+        val resource = dataSource.fetchCoins()
         if (resource.status == Resource.Status.SUCCESS){
             resource.data?.let {
                 coinDAO.insertAll(resource.data)

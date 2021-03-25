@@ -6,12 +6,8 @@
     <data>
 
         <variable
-            name="ViewModel"
-            type="com.pmirkelam.cointracker.coindetail.ui.CoinDetailViewModel" />
-
-        <variable
             name="coin"
-            type="com.pmirkelam.cointracker.data.CoinDetail" />
+            type="com.pmirkelam.cointracker.coindetail.data.CoinDetail" />
     </data>
 
     <FrameLayout
@@ -25,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
         <ScrollView
             android:layout_width="match_parent"
