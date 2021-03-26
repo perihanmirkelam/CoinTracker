@@ -17,4 +17,6 @@ object Constants {
     const val COLLECTION_USERS = "users"
     const val COLLECTION_FAVORITES = "favorites"
 
+    const val PAGE_SIZE = 8
+
 }

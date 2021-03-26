@@ -34,13 +34,13 @@ class CoinsViewModel @Inject constructor(private val repository: CoinRepository)
         get() = _isFiltered
 
     private fun getCoins(): Flow<PagingData<Coin>> {
-        return Pager(PagingConfig(pageSize = 4, prefetchDistance = 4)) {
+        return Pager(PagingConfig(pageSize = 8, prefetchDistance = 8)) {
             CoinsPagingSource(repository)
         }.flow.cachedIn(viewModelScope)
     }
 
     private fun getFilteredCoins(): Flow<PagingData<Coin>> {
-        return Pager(PagingConfig(pageSize = 4, prefetchDistance = 4)) {
+        return Pager(PagingConfig(pageSize = 8, prefetchDistance = 8)) {
             FilteredCoinsPagingSource(repository, _filter)
         }.flow.cachedIn(viewModelScope)
     }

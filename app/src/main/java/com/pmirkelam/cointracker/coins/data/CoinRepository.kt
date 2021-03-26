@@ -1,6 +1,7 @@
 package com.pmirkelam.cointracker.coins.data
 
 import com.pmirkelam.cointracker.api.CoinDataSource
+import com.pmirkelam.cointracker.utils.Constants.PAGE_SIZE
 import com.pmirkelam.cointracker.utils.Resource
 import javax.inject.Inject
 
@@ -10,19 +11,19 @@ class CoinRepository @Inject constructor(
 ) {
 
     suspend fun getPagedCoins(offset: Int): List<Coin> {
-        val cachedCoins = coinDAO.get4Coins(offset)
+        val cachedCoins = coinDAO.getPagedCoins(offset, PAGE_SIZE)
         if (cachedCoins.isEmpty()) {
             fetchCoins()
         }
-        return coinDAO.get4Coins(offset)
+        return coinDAO.getPagedCoins(offset, PAGE_SIZE)
     }
 
     suspend fun getFilteredPagedCoins(filter: String, offset: Int): List<Coin> {
-        val cachedCoins = coinDAO.getFilteredCoins(filter, offset)
+        val cachedCoins = coinDAO.getFilteredCoins("$filter%", offset, PAGE_SIZE)
         if (cachedCoins.isEmpty()) {
             fetchCoins()
         }
-        return coinDAO.getFilteredCoins("$filter%", offset)
+        return coinDAO.getFilteredCoins("$filter%", offset, PAGE_SIZE)
     }
 
     private suspend fun fetchCoins(){
