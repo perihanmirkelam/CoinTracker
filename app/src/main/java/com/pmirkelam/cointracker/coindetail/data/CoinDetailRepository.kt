@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task
 import com.pmirkelam.cointracker.api.CoinDataSource
 import com.pmirkelam.cointracker.firebase.FirebaseSource
 import com.pmirkelam.cointracker.coindetail.data.CoinDetail.Companion.toCoinDetail
+import com.pmirkelam.cointracker.utils.Resource
 import com.pmirkelam.cointracker.utils.SessionManagement
 import com.pmirkelam.cointracker.utils.resultLiveData
 import kotlinx.coroutines.tasks.await
@@ -22,6 +23,13 @@ class CoinDetailRepository @Inject constructor(
         networkCall = { dataSource.fetchCoin(id) },
         saveCallResult = { coinDetailDAO.insert(it) }
     )
+
+    suspend fun refreshCoinDetail(id: String) {
+        val responseStatus = dataSource.fetchCoin(id)
+        if (responseStatus.status == Resource.Status.SUCCESS) {
+            coinDetailDAO.insert(responseStatus.data!!)
+        }
+    }
 
     fun setFavorite(coinDetail: CoinDetail): Task<Void> {
         return firebaseSource.setFavoriteCoinDetail(sessionManagement.getUser(), coinDetail)

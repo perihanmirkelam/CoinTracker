@@ -1,5 +1,6 @@
 package com.pmirkelam.cointracker.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -12,10 +13,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.ui.*
 import com.pmirkelam.cointracker.R
+import com.pmirkelam.cointracker.RefreshService
 import com.pmirkelam.cointracker.coins.ui.CoinsFragmentDirections
 import com.pmirkelam.cointracker.databinding.ActivityMainBinding
 import com.pmirkelam.cointracker.databinding.NavHeaderMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -64,4 +67,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    override fun onPause() {
+        startService(Intent(this, RefreshService::class.java))
+        super.onPause()
+    }
 }
