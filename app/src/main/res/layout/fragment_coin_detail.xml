@@ -29,199 +29,126 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/character_cl"
+                android:padding="@dimen/text_margin"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
-                <androidx.appcompat.widget.AppCompatImageView
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="@dimen/detail_screen_guideline" />
+
+                <ImageView
                     android:id="@+id/image_coin_detail"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="@dimen/image_margin"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="@dimen/image_size"
+                    android:layout_height="@dimen/image_size"
+                    android:layout_marginStart="@dimen/text_margin"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/icon_favorited"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/image_margin"
-                    android:layout_marginTop="@dimen/image_margin"
-                    android:layout_marginEnd="@dimen/image_margin"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_favorite_on"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/image_coin_detail"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <ImageView
-                    android:id="@+id/icon_set_interval"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="@dimen/parent_margin_properties"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_refresh_interval_off"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_price_change_percentage" />
-
-                <TextView
-                    android:id="@+id/text_coin_detail_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:layout_marginBottom="@dimen/text_margin"
-                    android:text="@{coin.name}"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_coin_detail"
-                    tools:text="Bitcoin" />
-
-                <TextView
-                    android:id="@+id/symbol_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/parent_margin_properties"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/symbol"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_coin_detail_name" />
-
-                <TextView
-                    android:id="@+id/text_symbol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:layout_marginEnd="@dimen/parent_margin_properties"
-                    android:text="@{coin.symbol}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_coin_detail_name"
-                    tools:text="BTC" />
-
-                <TextView
-                    android:id="@+id/id_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/parent_margin_properties"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/id"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/symbol_text" />
-
-                <TextView
-                    android:id="@+id/text_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:layout_marginEnd="@dimen/parent_margin_properties"
-                    android:text="@{coin.id}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_symbol"
-                    tools:text="bitcoin" />
-
-                <TextView
-                    android:id="@+id/hashing_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/parent_margin_properties"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/hashing"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/id_text" />
-
-                <TextView
-                    android:id="@+id/text_hashing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:layout_marginEnd="@dimen/parent_margin_properties"
-                    android:text='@{coin.hashing ?? "-"}'
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_id"
-                    tools:text="SHA-256" />
-
-
-                <TextView
-                    android:id="@+id/current_price_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/parent_margin_properties"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/current_price"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hashing_text" />
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    tools:src="@mipmap/ic_launcher" />
 
                 <TextView
                     android:id="@+id/text_current_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/text_margin"
-                    android:layout_marginEnd="@dimen/parent_margin_properties"
-                    android:text='@{coin.marketData.currentPrice.usd != null ? ("$ " + String.format("%.4f", coin.marketData.currentPrice.usd)) : "-"}'
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:text='@{coin.marketData.currentPrice.usd != null ? ("$ " + String.format("%.4f", coin.marketData.currentPrice.usd)) : ""}'
+                    android:textAppearance="?attr/textAppearanceHeadline4"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_hashing"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
                     tools:text="$58.000" />
 
                 <TextView
-                    android:id="@+id/price_change_percentage_text"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text_coin_detail_name"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/parent_margin_properties"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/price_change_percentage"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/current_price_text" />
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:text="@{coin.name}"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/text_symbol"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_coin_detail"
+                    tools:text="Bitcoin" />
+
+                <TextView
+                    android:id="@+id/text_symbol"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:text="@{coin.symbol}"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    app:layout_constraintBottom_toTopOf="@+id/text_hashing"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_coin_detail"
+                    tools:text="BTC" />
+
+
+                <TextView
+                    android:id="@+id/text_hashing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin_big"
+                    android:text='@{coin.hashing ?? ""}'
+                    android:textAppearance="?attr/textAppearanceHeadline4"
+                    app:layout_constraintBottom_toTopOf="@+id/text_price_change_percentage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_coin_detail"
+                    tools:text="SHA-256" />
 
                 <TextView
                     android:id="@+id/text_price_change_percentage"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:layout_marginEnd="@dimen/parent_margin_properties"
-                    android:text='@{coin.marketData.priceChangePercentage24h != null ? (String.format("%.2f", coin.marketData.priceChangePercentage24h) + " %") : "-"}'
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin_big"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:text='@{coin.marketData.priceChangePercentage24h != null ? (@string/price_change_percentage + " " + String.format("%.2f", coin.marketData.priceChangePercentage24h) + " %") : ""}'
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_current_price"
-                    tools:text="10%" />
-
-                <TextView
-                    android:id="@+id/interval_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/parent_margin_properties"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/interval"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/price_change_percentage_text" />
+                    android:textAppearance="?attr/textAppearanceHeadline3"
+                    app:layout_constraintTop_toBottomOf="@+id/image_coin_detail"
+                    tools:text="@string/price_change_percentage" />
 
                 <TextView
                     android:id="@+id/text_interval"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin"
                     android:layout_marginEnd="@dimen/text_margin"
-                    android:text="@{String.valueOf(coin.interval)}"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/interval_text"
-                    app:layout_constraintEnd_toStartOf="@+id/icon_set_interval"
-                    tools:text="10" />
+                    android:text='@{coin.interval != null ? (@string/interval + "" + String.valueOf(coin.interval)) : ""}'
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textAppearance="?attr/textAppearanceHeadline3"
+                    app:layout_constraintTop_toBottomOf="@+id/text_price_change_percentage"
+                    tools:text="@string/interval" />
 
                 <TextView
                     android:id="@+id/text_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/description_margin"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto"
-                    android:paddingBottom="@dimen/parent_margin_properties"
+                    android:layout_margin="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/description_margin"
                     android:text="@{coin.description.en}"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/interval_text"
+                    app:layout_constraintTop_toBottomOf="@+id/text_interval"
                     tools:text="@string/sample_description" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

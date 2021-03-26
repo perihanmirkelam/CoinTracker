@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CoinTracker</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="menu_favorites">My favorite coins</string>
+    <string name="menu_favorites">Favorite coins</string>
     <string name="menu_log_out">Logout</string>
     <string name="menu_favorite">Add to favorites</string>
     <string name="menu_set_interval">Set refresh interval</string>
@@ -12,7 +12,7 @@
     <string name="symbol">Symbol:</string>
     <string name="id">ID:</string>
     <string name="hashing">Hashing:</string>
-    <string name="price_change_percentage">Price Change \nPercentage in 24h:</string>
+    <string name="price_change_percentage">Price Change Percentage in 24h:</string>
     <string name="interval">Price refresh interval:</string>
     <string name="current_price">Current Price:</string>
     <string name="full_name">Full name</string>
@@ -24,4 +24,6 @@
     <string name="sign_in">Sign In</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="interval_in_seconds">Set an interval in seconds to refresh the price of the coin</string>
+    <string name="seconds">Seconds</string>
 </resources>

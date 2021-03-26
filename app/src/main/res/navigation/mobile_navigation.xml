@@ -31,8 +31,7 @@
         <action
             android:id="@+id/action_coinListFragment_to_coinDetailFragment"
             app:destination="@id/coinDetailFragment"
-            app:popUpTo="@+id/coinDetailFragment"
-            app:popUpToInclusive="true">
+            app:popUpTo="@+id/coinDetailFragment">
             <argument
                 android:name="coin_id"
                 app:argType="string" />
@@ -46,7 +45,7 @@
     <fragment
         android:id="@+id/coinDetailFragment"
         android:name="com.pmirkelam.cointracker.coindetail.ui.CoinDetailFragment"
-        android:label="Coin Detail" />
+        android:label="" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.pmirkelam.cointracker.auth.ui.LoginFragment"

@@ -2,7 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_vertical_spacing">60dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="text_margin">12dp</dimen>
     <dimen name="image_margin">32dp</dimen>
@@ -13,4 +13,15 @@
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="auth_button_margin">40dp</dimen>
     <dimen name="button_margin">32dp</dimen>
+    <dimen name="text_margin_big">24dp</dimen>
+    <dimen name="image_size">160dp</dimen>
+    <dimen name="header_text_size">20sp</dimen>
+    <dimen name="detail_screen_guideline">30dp</dimen>
+    <dimen name="text_size_list">24sp</dimen>
+    <dimen name="text_padding_list">24dp</dimen>
+    <dimen name="list_margin">8dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">5dp</dimen>
+    <dimen name="list_line_height">1dp</dimen>
+    <dimen name="header_image_size">100dp</dimen>
 </resources>
