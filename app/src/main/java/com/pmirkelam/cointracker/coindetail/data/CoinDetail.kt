@@ -25,7 +25,7 @@ data class CoinDetail(
     val description: Description?,
     @Embedded
     val image: Image?,
-    val interval: Int?,
+    var isFavorite: Boolean?
 ) : Parcelable {
 
     companion object {
@@ -33,9 +33,10 @@ data class CoinDetail(
             val id = getString("id")
             val name = getString("name")
             val symbol = getString("symbol")
-
+            val isFavorite = getBoolean("isFavorite")
             return if (id.isNullOrEmpty() || name.isNullOrEmpty() || symbol.isNullOrEmpty()) null
-            else CoinDetail(id, name, symbol, null, null, null, null, null)
+            else CoinDetail(id, name, symbol, null, null, null, null, isFavorite)
+            //return this.toObject(CoinDetail::class.java)
         }
     }
 }

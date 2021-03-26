@@ -31,14 +31,12 @@ class FirebaseSource @Inject constructor(
     fun setFavoriteCoinDetail(user: User, coinDetail: CoinDetail) = getUserCollection(user.email)
         .collection(COLLECTION_FAVORITES).document(coinDetail.id).set(coinDetail)
 
-    fun deleteFavoriteCoinDetail(user: User, coinDetail: CoinDetail) = getUserCollection(user.email)
-        .collection(COLLECTION_FAVORITES).document(coinDetail.id).delete()
+    fun deleteFavoriteCoinDetail(user: User, id: String) = getUserCollection(user.email)
+        .collection(COLLECTION_FAVORITES).document(id).delete()
 
     fun getFavoriteCoinDetails(user: User) = getUserCollection(user.email)
             .collection(COLLECTION_FAVORITES).get()
 
     fun isFavoriteCoinDetail(user: User, coinDetailId: String) = getUserCollection(user.email)
             .collection(COLLECTION_FAVORITES).document(coinDetailId).get()
-
-
 }

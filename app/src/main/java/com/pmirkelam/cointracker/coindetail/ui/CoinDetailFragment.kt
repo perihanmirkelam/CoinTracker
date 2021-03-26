@@ -1,13 +1,16 @@
 package com.pmirkelam.cointracker.coindetail.ui
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.*
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.pmirkelam.cointracker.R
+import com.pmirkelam.cointracker.databinding.DialogSetIntervalBinding
 import com.pmirkelam.cointracker.databinding.FragmentCoinDetailBinding
 import com.pmirkelam.cointracker.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +23,9 @@ class CoinDetailFragment : Fragment() {
     private lateinit var binding: FragmentCoinDetailBinding
     private var isFavorite = false
     private lateinit var favoriteItem: MenuItem
+    private var dialog: Dialog? = null
+
+    private lateinit var dialogBinding: DialogSetIntervalBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +35,15 @@ class CoinDetailFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_coin_detail, container, false)
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
+
+        dialogBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.dialog_set_interval, null, false
+        )
+        binding.viewModel = viewModel
+        dialogBinding.viewModel = viewModel
+        dialog = Dialog(requireContext())
+        dialog?.setContentView(dialogBinding.root)
         return binding.root
     }
 
@@ -38,17 +53,12 @@ class CoinDetailFragment : Fragment() {
         arguments?.get("coin_id")?.let { coinId -> viewModel.start(coinId as String) }
         observeCoinDetail()
         observeFavoriteStatus()
+        observeIntervalStatus()
     }
 
-    private fun observeFavoriteStatus(){
-        viewModel.isFavorite.observe(viewLifecycleOwner, {
-            isFavorite = it
-            refreshIcons()
-        })
-    }
-
-    private fun observeCoinDetail(){
+    private fun observeCoinDetail() {
         viewModel.coinDetail.observe(viewLifecycleOwner, {
+
             when (it?.status) {
                 Resource.Status.SUCCESS -> {
                     binding.coin = it.data
@@ -69,12 +79,20 @@ class CoinDetailFragment : Fragment() {
         })
     }
 
-
-    private fun refreshIcons() {
-        val icon = if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
-        if (this::favoriteItem.isInitialized) favoriteItem.setIcon(icon)
+    private fun observeFavoriteStatus() {
+        viewModel.isFavorite.observe(viewLifecycleOwner, {
+            isFavorite = it
+            if (this::favoriteItem.isInitialized) favoriteItem.setIcon(
+                if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
+            )
+        })
     }
 
+    private fun observeIntervalStatus() {
+        viewModel.isInternalDialogActive.observe(viewLifecycleOwner, {
+            if(!it)dialog?.hide()
+        })
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.coin_detail_menu, menu)
@@ -83,23 +101,25 @@ class CoinDetailFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_add_favorites -> {
-                Toast.makeText(
-                    context,
-                    if (isFavorite) "Removing from favorites..." else "Adding to Favorites...",
-                    Toast.LENGTH_LONG
-                ).show()
-                viewModel.favoriteButtonClicked()
-            }
-            R.id.action_set_interval -> {
-                viewModel.setRefreshInterval()
-                Toast.makeText(context, "Not implemented yet", Toast.LENGTH_SHORT).show()
-            }
-            R.id.action_refresh -> {
-                viewModel.refresh()
-                Toast.makeText(context, "Not implemented yet", Toast.LENGTH_SHORT).show()
-            }
+            R.id.action_add_favorites -> addToFavorites()
+            R.id.action_set_interval -> dialog?.show()
+            R.id.action_refresh -> viewModel.refresh()
+
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun addToFavorites(){
+        Toast.makeText(
+            context,
+            if (isFavorite) "Removing from favorites..." else "Adding to Favorites...",
+            Toast.LENGTH_LONG
+        ).show()
+        viewModel.favoriteButtonClicked()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
     }
 }

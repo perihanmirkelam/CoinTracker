@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_set_interval"
-        android:icon="@drawable/ic_refresh_interval_off"
+        android:icon="@drawable/ic_refresh_interval_on"
         android:title="@string/menu_favorite"
         app:showAsAction="ifRoom" />
 

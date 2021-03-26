@@ -25,5 +25,8 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="interval_in_seconds">Set an interval in seconds to refresh the price of the coin</string>
+    <string name="reset">Reset</string>
+    <string name="set">Set</string>
+    <string name="cancel">Cancel</string>
     <string name="seconds">Seconds</string>
 </resources>

@@ -27,8 +27,8 @@ class CoinDetailRepository @Inject constructor(
         return firebaseSource.setFavoriteCoinDetail(sessionManagement.getUser(), coinDetail)
     }
 
-    fun deleteFavorite(coinDetail: CoinDetail): Task<Void> {
-        return firebaseSource.deleteFavoriteCoinDetail(sessionManagement.getUser(), coinDetail)
+    fun deleteFavorite(coinDetailId: String): Task<Void> {
+        return firebaseSource.deleteFavoriteCoinDetail(sessionManagement.getUser(), coinDetailId)
     }
 
     suspend fun isFavorite(coinDetailId: String): Boolean {
