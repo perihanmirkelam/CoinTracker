@@ -21,7 +21,7 @@ class CoinDetailViewModel @Inject constructor(private val repository: CoinDetail
     private val _isFavorite = MutableLiveData(false)
     private val _isInternalDialogActive = MutableLiveData(false)
 
-    var interval = MutableLiveData<String>() //Bindable
+    var interval = MutableLiveData("0") //Bindable
 
     private var _handler: Handler? = null
     private val _runnable: Runnable = object : Runnable {
@@ -63,7 +63,8 @@ class CoinDetailViewModel @Inject constructor(private val repository: CoinDetail
     fun favoriteButtonClicked() {
         viewModelScope.launch {
             _coinDetail.value?.data?.let { coinDetail ->
-                if (!repository.isFavorite(coinDetail.id)) repository.setFavorite(coinDetail).await()
+                if (!repository.isFavorite(coinDetail.id)) repository.setFavorite(coinDetail)
+                    .await()
                 else repository.deleteFavorite(coinDetail.id).await()
             }
             fetchFavoriteStatus()
@@ -71,8 +72,8 @@ class CoinDetailViewModel @Inject constructor(private val repository: CoinDetail
     }
 
     fun setIntervalSelected() {
-        interval.value?.let {
-            _handler?.let { it.removeCallbacks(_runnable) }
+        if (interval.value != null && interval.value!!.toInt() > 5) {
+            _handler?.removeCallbacks(_runnable)
             _handler = Handler(Looper.getMainLooper())
             _handler?.postDelayed(_runnable, interval.value?.toLong()!!)
         }
@@ -80,11 +81,15 @@ class CoinDetailViewModel @Inject constructor(private val repository: CoinDetail
     }
 
     fun resetIntervalSelected() {
-        _handler?.let { it.removeCallbacks(_runnable) }
+        _handler?.removeCallbacks(_runnable)
+        interval.value = "0"
         closeDialog()
     }
 
-    fun cancelIntervalSelected() = closeDialog()
+    fun cancelIntervalSelected() {
+        closeDialog()
+        interval.value = "0"
+    }
 
 
     private fun closeDialog() {
@@ -94,4 +99,5 @@ class CoinDetailViewModel @Inject constructor(private val repository: CoinDetail
     fun onDestroy() {
         _handler?.removeCallbacks(_runnable)
     }
+    
 }

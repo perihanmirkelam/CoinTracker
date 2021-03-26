@@ -134,7 +134,7 @@
                     android:layout_marginStart="@dimen/text_margin"
                     android:layout_marginTop="@dimen/text_margin"
                     android:layout_marginEnd="@dimen/text_margin"
-                    android:text='@{viewModel.interval != null ? (@string/interval + "" + String.valueOf(viewModel.interval)) : ""}'
+                    android:text='@{viewModel.interval != "0" ? (@string/interval + "" + String.valueOf(viewModel.interval)) : ""}'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:textAppearance="?attr/textAppearanceHeadline3"
