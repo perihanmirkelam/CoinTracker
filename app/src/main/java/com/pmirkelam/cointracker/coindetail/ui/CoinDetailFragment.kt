@@ -1,10 +1,14 @@
 package com.pmirkelam.cointracker.coindetail.ui
 
 import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
 import android.view.*
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -58,15 +62,13 @@ class CoinDetailFragment : Fragment() {
 
     private fun observeCoinDetail() {
         viewModel.coinDetail.observe(viewLifecycleOwner, {
-
             when (it?.status) {
                 Resource.Status.SUCCESS -> {
                     binding.coin = it.data
                     binding.progressBar.visibility = View.GONE
-                    it.let {
-                        Glide.with(binding.root)
-                            .load(it.data?.image?.url)
-                            .into(binding.imageCoinDetail)
+                    it.data?.let { detail ->
+                        loadImage(detail.image?.url)
+                        convertHtml(detail.description?.en)
                     }
                 }
                 Resource.Status.ERROR -> {
@@ -90,7 +92,7 @@ class CoinDetailFragment : Fragment() {
 
     private fun observeIntervalStatus() {
         viewModel.isInternalDialogActive.observe(viewLifecycleOwner, {
-            if(!it)dialog?.hide()
+            if (!it) dialog?.hide()
         })
     }
 
@@ -109,7 +111,22 @@ class CoinDetailFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun addToFavorites(){
+    private fun convertHtml(text: String?){
+        val toHtml = text?.replace("\\n", "<br />")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.textDescription.text = Html.fromHtml(toHtml, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            binding.textDescription.text = text
+        }
+    }
+
+    private fun loadImage(url: String?) =
+        Glide.with(binding.root)
+            .load(url)
+            .into(binding.imageCoinDetail)
+
+
+    private fun addToFavorites() {
         Toast.makeText(
             context,
             if (isFavorite) "Removing from favorites..." else "Adding to Favorites...",

@@ -8,10 +8,7 @@ import com.pmirkelam.cointracker.coindetail.data.CoinDetailRepository
 import com.pmirkelam.cointracker.coindetail.data.CoinDetail
 import com.pmirkelam.cointracker.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
