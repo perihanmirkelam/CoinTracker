@@ -43,7 +43,7 @@ class RefreshService : Service() {
     companion object{
         const val NOTIFICATION_TEXT = "Coin tracking service is running"
         const val CONTEXT_TEXT = "Refreshing favorite coin prices"
-        const val BACKGROUND_REFRESH_INTERVAL = 6000L
+        const val BACKGROUND_REFRESH_INTERVAL = 60_000L
     }
 
     override fun onBind(intent: Intent?): IBinder? {
