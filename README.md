@@ -2,8 +2,6 @@
 
 This is a basic cryptocurrency tracker app.
 
-## Description
-
 Track cryptocurrencies, prices, price change percentages over the past 24 hours.
 
 Save your favorite currencies.
